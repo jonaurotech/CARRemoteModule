@@ -1,0 +1,14 @@
+﻿<Window x:Class="CAR.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+        xmlns:local="clr-namespace:CAR"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="650" Width="650">
+   <Grid>
+      <Label Content="{Binding ElementName=Slider1, Path=Value}" Height="25" Width="100"></Label>
+<Slider Name="Slider1" />
+   </Grid>
+</Window>

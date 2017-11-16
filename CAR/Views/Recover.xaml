@@ -1,0 +1,32 @@
+﻿<Page x:Class="CAR.Views.Recover"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CAR.Views"
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+      mc:Ignorable="d" 
+      WindowWidth="960" WindowHeight="640"
+      Title="Recover" Loaded="Page_Loaded" Name="recoverPage">
+   <StackPanel>
+      <StackPanel Name="rrStack" Margin="0">
+
+      </StackPanel>
+      <Grid Name="twoGrid" Background="White" Height="391" Width="450" HorizontalAlignment="Center">
+         <Label x:Name="resetLabel" Content="Recover Password" FontSize="20" HorizontalContentAlignment="Center" Margin="0,50,0,0" FontFamily="segoe ui"/>
+         <telerik:RadMaskedTextInput HorizontalAlignment="Stretch" MaxHeight="50" 
+Margin="67,132,55,0"
+x:Name="emailPasswordMask" Height="32" VerticalAlignment="Top" RenderTransformOrigin="0.772,1.407"/>
+         <telerik:RadButton VerticalAlignment="Bottom" 
+Margin="132,0,121,77" Height="39"
+x:Name="submitBut" Content="Submit" d:LayoutOverrides="HorizontalAlignment" Foreground="White" FontSize="14" Click="submitBut_Click"/>
+
+         <Label
+Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1"
+Margin="95,0,85,159"
+x:Name="emailPasslabel" Content="Enter email and submit to reset password" Height="33" FontSize="14" VerticalAlignment="Bottom" FontFamily="segoe ui" RenderTransformOrigin="0.166,-0.174"/>
+      </Grid>
+   </StackPanel>
+
+
+</Page>

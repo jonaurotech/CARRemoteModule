@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/CAR/bin/Debug
+/CAR/CAR.RemoteModuleService/bin/Debug
+/CAR/CAR.RemoteModuleService/obj/Debug
+/CAR/obj/Debug
+/CAR.RemoteModule/
+/CAR/RemoteProcedure1/

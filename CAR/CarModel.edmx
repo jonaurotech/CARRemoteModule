@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CARModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="APO_PCO">
+          <Key>
+            <PropertyRef Name="APO_PCO_PIV_BADGE_NUM" />
+          </Key>
+          <Property Name="APO_PCO_PIV_BADGE_NUM" Type="int" Nullable="false" />
+          <Property Name="USER_ID" Type="varchar" MaxLength="12" />
+          <Property Name="CENTER" Type="varchar" MaxLength="5" />
+          <Property Name="CAR_ADMIN" Type="bit" />
+          <Property Name="CAN_SEND_REMINDER" Type="bit" />
+          <Property Name="MUST_CHANGE_PWD" Type="bit" />
+          <Property Name="ENABLED" Type="bit" />
+          <Property Name="LAST_NAME" Type="varchar" MaxLength="45" />
+          <Property Name="MIDDLE_INITIAL" Type="varchar" MaxLength="1" />
+          <Property Name="FIRST_NAME" Type="varchar" MaxLength="45" />
+          <Property Name="PHONE_NUM" Type="varchar" MaxLength="15" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="100" />
+          <Property Name="PASSWORD_REMINDER" Type="varchar" MaxLength="150" />
+          <Property Name="CREATED" Type="datetime" />
+          <Property Name="LAST_UPDATED" Type="datetime" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="12" />
+        </EntityType>
+        <EntityType Name="ASSETS">
+          <Key>
+            <PropertyRef Name="BARCODE" />
+          </Key>
+          <Property Name="BARCODE" Type="int" Nullable="false" />
+          <Property Name="MANUFACTURER" Type="varchar" MaxLength="45" />
+          <Property Name="MODEL" Type="varchar" MaxLength="45" />
+          <Property Name="SERIAL_NUM" Type="varchar" MaxLength="45" />
+          <Property Name="COMPUTER_NAME" Type="varchar" MaxLength="45" />
+          <Property Name="DATETIME_ASSIGNED" Type="datetime" />
+          <Property Name="DATETIME_RECEIVED" Type="datetime" />
+          <Property Name="STATE" Type="varchar" MaxLength="45" />
+          <Property Name="APO_PCO_PIV_BADGE_NUM" Type="int" />
+          <Property Name="CREATED" Type="datetime" />
+          <Property Name="LAST_UPDATED" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CENTERS">
+          <Key>
+            <PropertyRef Name="CENTER1" />
+          </Key>
+          <Property Name="CENTER1" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="LOCATION_CODE" Type="varchar" MaxLength="10" />
+          <Property Name="CREATED" Type="datetime" />
+          <Property Name="LAST_UPDATED" Type="datetime" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="USER_PIV_BADGE_NUM" />
+          </Key>
+          <Property Name="USER_PIV_BADGE_NUM" Type="int" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="varchar" MaxLength="45" />
+          <Property Name="LAST_NAME" Type="varchar" MaxLength="45" />
+          <Property Name="MIDDILE_INITIAL" Type="varchar" MaxLength="1" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="100" />
+          <Property Name="DATETIME_ACCEPTED" Type="datetime" />
+          <Property Name="BARCODE" Type="int" />
+          <Property Name="APO_PCO_PIV_BADGE_NUM" Type="int" />
+          <Property Name="PREVIOUS_BARCODE" Type="int" />
+          <Property Name="OUTSTANDING_ASSET" Type="bit" />
+          <Property Name="LAST_REMINDER" Type="datetime" />
+          <Property Name="CREATED" Type="datetime" />
+          <Property Name="LAST_UPDATED" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_APOPCOBADGE">
+          <End Role="APO_PCO" Type="Self.APO_PCO" Multiplicity="0..1" />
+          <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APO_PCO">
+              <PropertyRef Name="APO_PCO_PIV_BADGE_NUM" />
+            </Principal>
+            <Dependent Role="USERS">
+              <PropertyRef Name="APO_PCO_PIV_BADGE_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BARCODE">
+          <End Role="ASSETS" Type="Self.ASSETS" Multiplicity="0..1" />
+          <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSETS">
+              <PropertyRef Name="BARCODE" />
+            </Principal>
+            <Dependent Role="USERS">
+              <PropertyRef Name="BARCODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_centers">
+          <End Role="CENTERS" Type="Self.CENTERS" Multiplicity="0..1" />
+          <End Role="APO_PCO" Type="Self.APO_PCO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CENTERS">
+              <PropertyRef Name="CENTER1" />
+            </Principal>
+            <Dependent Role="APO_PCO">
+              <PropertyRef Name="CENTER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PCOBADGE">
+          <End Role="APO_PCO" Type="Self.APO_PCO" Multiplicity="0..1" />
+          <End Role="ASSETS" Type="Self.ASSETS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APO_PCO">
+              <PropertyRef Name="APO_PCO_PIV_BADGE_NUM" />
+            </Principal>
+            <Dependent Role="ASSETS">
+              <PropertyRef Name="APO_PCO_PIV_BADGE_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CARModelStoreContainer">
+          <EntitySet Name="APO_PCO" EntityType="Self.APO_PCO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ASSETS" EntityType="Self.ASSETS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CENTERS" EntityType="Self.CENTERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_APOPCOBADGE" Association="Self.FK_APOPCOBADGE">
+            <End Role="APO_PCO" EntitySet="APO_PCO" />
+            <End Role="USERS" EntitySet="USERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BARCODE" Association="Self.FK_BARCODE">
+            <End Role="ASSETS" EntitySet="ASSETS" />
+            <End Role="USERS" EntitySet="USERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_centers" Association="Self.FK_centers">
+            <End Role="CENTERS" EntitySet="CENTERS" />
+            <End Role="APO_PCO" EntitySet="APO_PCO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PCOBADGE" Association="Self.FK_PCOBADGE">
+            <End Role="APO_PCO" EntitySet="APO_PCO" />
+            <End Role="ASSETS" EntitySet="ASSETS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CARModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="APO_PCO">
+          <Key>
+            <PropertyRef Name="APO_PCO_PIV_BADGE_NUM" />
+          </Key>
+          <Property Name="APO_PCO_PIV_BADGE_NUM" Type="Int32" Nullable="false" />
+          <Property Name="USER_ID" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="CENTER" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="CAR_ADMIN" Type="Boolean" />
+          <Property Name="CAN_SEND_REMINDER" Type="Boolean" />
+          <Property Name="MUST_CHANGE_PWD" Type="Boolean" />
+          <Property Name="ENABLED" Type="Boolean" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="MIDDLE_INITIAL" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="PHONE_NUM" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD_REMINDER" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED" Type="DateTime" Precision="3" />
+          <Property Name="LAST_UPDATED" Type="DateTime" Precision="3" />
+          <Property Name="PASSWORD" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="USERS" Relationship="Self.FK_APOPCOBADGE" FromRole="APO_PCO" ToRole="USERS" />
+          <NavigationProperty Name="CENTER1" Relationship="Self.FK_centers" FromRole="APO_PCO" ToRole="CENTERS" />
+          <NavigationProperty Name="ASSETS" Relationship="Self.FK_PCOBADGE" FromRole="APO_PCO" ToRole="ASSETS" />
+        </EntityType>
+        <EntityType Name="ASSET">
+          <Key>
+            <PropertyRef Name="BARCODE" />
+          </Key>
+          <Property Name="BARCODE" Type="Int32" Nullable="false" />
+          <Property Name="MANUFACTURER" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="MODEL" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="SERIAL_NUM" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="COMPUTER_NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="DATETIME_ASSIGNED" Type="DateTime" Precision="3" />
+          <Property Name="DATETIME_RECEIVED" Type="DateTime" Precision="3" />
+          <Property Name="STATE" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="APO_PCO_PIV_BADGE_NUM" Type="Int32" />
+          <Property Name="CREATED" Type="DateTime" Precision="3" />
+          <Property Name="LAST_UPDATED" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="APO_PCO" Relationship="Self.FK_PCOBADGE" FromRole="ASSETS" ToRole="APO_PCO" />
+          <NavigationProperty Name="USERS" Relationship="Self.FK_BARCODE" FromRole="ASSETS" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="CENTER">
+          <Key>
+            <PropertyRef Name="CENTER1" />
+          </Key>
+          <Property Name="CENTER1" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LOCATION_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED" Type="DateTime" Precision="3" />
+          <Property Name="LAST_UPDATED" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="APO_PCO" Relationship="Self.FK_centers" FromRole="CENTERS" ToRole="APO_PCO" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="USER_PIV_BADGE_NUM" />
+          </Key>
+          <Property Name="USER_PIV_BADGE_NUM" Type="Int32" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="MIDDILE_INITIAL" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DATETIME_ACCEPTED" Type="DateTime" Precision="3" />
+          <Property Name="BARCODE" Type="Int32" />
+          <Property Name="APO_PCO_PIV_BADGE_NUM" Type="Int32" />
+          <Property Name="PREVIOUS_BARCODE" Type="Int32" />
+          <Property Name="OUTSTANDING_ASSET" Type="Boolean" />
+          <Property Name="LAST_REMINDER" Type="DateTime" Precision="3" />
+          <Property Name="CREATED" Type="DateTime" Precision="3" />
+          <Property Name="LAST_UPDATED" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="APO_PCO" Relationship="Self.FK_APOPCOBADGE" FromRole="USERS" ToRole="APO_PCO" />
+          <NavigationProperty Name="ASSET" Relationship="Self.FK_BARCODE" FromRole="USERS" ToRole="ASSETS" />
+          <NavigationProperty Name="NavigationProperty1" />
+        </EntityType>
+        <Association Name="FK_APOPCOBADGE">
+          <End Role="APO_PCO" Type="Self.APO_PCO" Multiplicity="0..1" />
+          <End Role="USERS" Type="Self.USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APO_PCO">
+              <PropertyRef Name="APO_PCO_PIV_BADGE_NUM" />
+            </Principal>
+            <Dependent Role="USERS">
+              <PropertyRef Name="APO_PCO_PIV_BADGE_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_centers">
+          <End Role="CENTERS" Type="Self.CENTER" Multiplicity="0..1" />
+          <End Role="APO_PCO" Type="Self.APO_PCO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CENTERS">
+              <PropertyRef Name="CENTER1" />
+            </Principal>
+            <Dependent Role="APO_PCO">
+              <PropertyRef Name="CENTER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PCOBADGE">
+          <End Role="APO_PCO" Type="Self.APO_PCO" Multiplicity="0..1" />
+          <End Role="ASSETS" Type="Self.ASSET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APO_PCO">
+              <PropertyRef Name="APO_PCO_PIV_BADGE_NUM" />
+            </Principal>
+            <Dependent Role="ASSETS">
+              <PropertyRef Name="APO_PCO_PIV_BADGE_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BARCODE">
+          <End Role="ASSETS" Type="Self.ASSET" Multiplicity="0..1" />
+          <End Role="USERS" Type="Self.USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSETS">
+              <PropertyRef Name="BARCODE" />
+            </Principal>
+            <Dependent Role="USERS">
+              <PropertyRef Name="BARCODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CAREntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="APO_PCO" EntityType="Self.APO_PCO" />
+          <EntitySet Name="ASSETS" EntityType="Self.ASSET" />
+          <EntitySet Name="CENTERS" EntityType="Self.CENTER" />
+          <EntitySet Name="USERS" EntityType="Self.USER" />
+          <AssociationSet Name="FK_APOPCOBADGE" Association="Self.FK_APOPCOBADGE">
+            <End Role="APO_PCO" EntitySet="APO_PCO" />
+            <End Role="USERS" EntitySet="USERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_centers" Association="Self.FK_centers">
+            <End Role="CENTERS" EntitySet="CENTERS" />
+            <End Role="APO_PCO" EntitySet="APO_PCO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PCOBADGE" Association="Self.FK_PCOBADGE">
+            <End Role="APO_PCO" EntitySet="APO_PCO" />
+            <End Role="ASSETS" EntitySet="ASSETS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BARCODE" Association="Self.FK_BARCODE">
+            <End Role="ASSETS" EntitySet="ASSETS" />
+            <End Role="USERS" EntitySet="USERS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CARModelStoreContainer" CdmEntityContainer="CAREntities">
+    <EntitySetMapping Name="APO_PCO">
+      <EntityTypeMapping TypeName="IsTypeOf(CARModel.APO_PCO)">
+        <MappingFragment StoreEntitySet="APO_PCO">
+          <ScalarProperty Name="APO_PCO_PIV_BADGE_NUM" ColumnName="APO_PCO_PIV_BADGE_NUM" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="CENTER" ColumnName="CENTER" />
+          <ScalarProperty Name="CAR_ADMIN" ColumnName="CAR_ADMIN" />
+          <ScalarProperty Name="CAN_SEND_REMINDER" ColumnName="CAN_SEND_REMINDER" />
+          <ScalarProperty Name="MUST_CHANGE_PWD" ColumnName="MUST_CHANGE_PWD" />
+          <ScalarProperty Name="ENABLED" ColumnName="ENABLED" />
+          <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+          <ScalarProperty Name="MIDDLE_INITIAL" ColumnName="MIDDLE_INITIAL" />
+          <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+          <ScalarProperty Name="PHONE_NUM" ColumnName="PHONE_NUM" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="PASSWORD_REMINDER" ColumnName="PASSWORD_REMINDER" />
+          <ScalarProperty Name="CREATED" ColumnName="CREATED" />
+          <ScalarProperty Name="LAST_UPDATED" ColumnName="LAST_UPDATED" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ASSETS">
+      <EntityTypeMapping TypeName="IsTypeOf(CARModel.ASSET)">
+        <MappingFragment StoreEntitySet="ASSETS">
+          <ScalarProperty Name="BARCODE" ColumnName="BARCODE" />
+          <ScalarProperty Name="MANUFACTURER" ColumnName="MANUFACTURER" />
+          <ScalarProperty Name="MODEL" ColumnName="MODEL" />
+          <ScalarProperty Name="SERIAL_NUM" ColumnName="SERIAL_NUM" />
+          <ScalarProperty Name="COMPUTER_NAME" ColumnName="COMPUTER_NAME" />
+          <ScalarProperty Name="DATETIME_ASSIGNED" ColumnName="DATETIME_ASSIGNED" />
+          <ScalarProperty Name="DATETIME_RECEIVED" ColumnName="DATETIME_RECEIVED" />
+          <ScalarProperty Name="STATE" ColumnName="STATE" />
+          <ScalarProperty Name="APO_PCO_PIV_BADGE_NUM" ColumnName="APO_PCO_PIV_BADGE_NUM" />
+          <ScalarProperty Name="CREATED" ColumnName="CREATED" />
+          <ScalarProperty Name="LAST_UPDATED" ColumnName="LAST_UPDATED" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CENTERS">
+      <EntityTypeMapping TypeName="IsTypeOf(CARModel.CENTER)">
+        <MappingFragment StoreEntitySet="CENTERS">
+          <ScalarProperty Name="CENTER1" ColumnName="CENTER1" />
+          <ScalarProperty Name="LOCATION_CODE" ColumnName="LOCATION_CODE" />
+          <ScalarProperty Name="CREATED" ColumnName="CREATED" />
+          <ScalarProperty Name="LAST_UPDATED" ColumnName="LAST_UPDATED" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USERS">
+      <EntityTypeMapping TypeName="IsTypeOf(CARModel.USER)">
+        <MappingFragment StoreEntitySet="USERS">
+          <ScalarProperty Name="USER_PIV_BADGE_NUM" ColumnName="USER_PIV_BADGE_NUM" />
+          <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+          <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+          <ScalarProperty Name="MIDDILE_INITIAL" ColumnName="MIDDILE_INITIAL" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="DATETIME_ACCEPTED" ColumnName="DATETIME_ACCEPTED" />
+          <ScalarProperty Name="BARCODE" ColumnName="BARCODE" />
+          <ScalarProperty Name="APO_PCO_PIV_BADGE_NUM" ColumnName="APO_PCO_PIV_BADGE_NUM" />
+          <ScalarProperty Name="PREVIOUS_BARCODE" ColumnName="PREVIOUS_BARCODE" />
+          <ScalarProperty Name="OUTSTANDING_ASSET" ColumnName="OUTSTANDING_ASSET" />
+          <ScalarProperty Name="LAST_REMINDER" ColumnName="LAST_REMINDER" />
+          <ScalarProperty Name="CREATED" ColumnName="CREATED" />
+          <ScalarProperty Name="LAST_UPDATED" ColumnName="LAST_UPDATED" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

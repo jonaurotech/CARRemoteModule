@@ -1,0 +1,42 @@
+﻿<Page x:Class="CAR.Views.Change"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+      xmlns:local="clr-namespace:CAR.Views"
+      mc:Ignorable="d" 
+      WindowWidth="960" WindowHeight="640"
+      Title="Change" Loaded="Page_Loaded" Name="changePage">
+   <StackPanel>
+      <StackPanel Name="mcStack" Margin="0">
+
+      </StackPanel>
+      <Grid Name="fourGrid" Background="White" Height="391" Width="450" HorizontalAlignment="Center" Margin="255,0">
+         <Label x:Name="resetLabel" Content="Must Change Password" FontSize="20" HorizontalContentAlignment="Center" Margin="0,50,0,0" FontFamily="segoe ui"/>
+         <telerik:RadPasswordBox HorizontalAlignment="Stretch" MaxHeight="50" BorderThickness="1"
+Margin="143,121,110,0"
+x:Name="password3Box" RenderTransformOrigin="0.772,1.407" Height="39" VerticalAlignment="Top" FontFamily="segoe ui"/>
+         <Label VerticalAlignment="Top" HorizontalAlignment="Left"
+Margin="25,137,0,0" Width="99" Height="23"
+x:Name="oldPassLabel" Content="Old Password:" FontFamily="Arial" Padding="0,0,0,5" FontSize="14"/>
+
+         <telerik:RadPasswordBox HorizontalAlignment="Stretch" MaxHeight="50" BorderThickness="1"
+Margin="143,191,110,161"
+x:Name="password1Box" RenderTransformOrigin="0.772,1.407"/>
+         <telerik:RadButton VerticalAlignment="Bottom" 
+Margin="143,0,110,22" Height="39"
+x:Name="submitBut" Content="Submit" d:LayoutOverrides="HorizontalAlignment" Foreground="White" FontSize="14" FontFamily="segoe ui"/>
+         <Label VerticalAlignment="Bottom" HorizontalAlignment="Left"
+Margin="25,0,0,161" Width="99" Height="23"
+x:Name="nLabel" Content="New Password:" FontFamily="Arial" Padding="0,0,0,5" FontSize="14"/>
+         <telerik:RadPasswordBox MaxHeight="50" MaxLength="200" Grid.RowSpan="1" BorderThickness="1"
+Margin="143,0,110,92" Width="Auto"
+x:Name="password2Box" Height="39" VerticalAlignment="Bottom" Padding="0,0,0,0"/>
+         <Label HorizontalAlignment="Left"
+Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1"
+Margin="10,0,0,98" Width="138"
+x:Name="rlabel" Content="Re-enter Password:" Height="33" VerticalAlignment="Bottom" RenderTransformOrigin="0.166,-0.174" FontSize="14" FontFamily="segoe ui"/>
+      </Grid>
+   </StackPanel>
+</Page>

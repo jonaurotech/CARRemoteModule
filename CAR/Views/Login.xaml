@@ -1,0 +1,41 @@
+﻿<Page x:Class="CAR.Views.Login"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CAR.Views"
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+      mc:Ignorable="d" 
+     WindowWidth="960" WindowHeight="640"
+      Title="Login" Loaded="Page_Loaded" Name="loginPage">
+
+   <StackPanel>
+      <StackPanel Name="crStack" Margin="0">
+
+      </StackPanel>
+      <telerik:RadBusyIndicator Name="messageBusy">
+      <Grid Name="oneGrid" Background="White" Height="391" Width="450" HorizontalAlignment="Center">
+         <TextBox HorizontalAlignment="Stretch" MaxHeight="50" 
+Margin="130,127,123,0" FontSize="14" Padding="0,5,0,0"
+x:Name="usernameRadMask" Height="39" VerticalAlignment="Top" RenderTransformOrigin="0.772,1.407"/>
+         
+         <telerik:RadButton VerticalAlignment="Bottom" 
+Margin="130,0,123,71" Height="39"
+x:Name="loginBut" Content="Login" d:LayoutOverrides="HorizontalAlignment" Foreground="White" FontSize="14" Click="loginBut_Click"/>
+        
+         <Label VerticalAlignment="Top" HorizontalAlignment="Left"
+Margin="36,132,0,0" Width="89" Height="32"
+x:Name="labelUser" Content="User Name" FontFamily="segoe ui" Padding="5,8,0,0"/>
+         <PasswordBox MaxHeight="50" MaxLength="200" Grid.RowSpan="1"
+Margin="130,0,123,142" Width="Auto"
+x:Name="passwordRadBox" Height="39" VerticalAlignment="Bottom" Padding="0,5,0,0"/>
+         <Label HorizontalAlignment="Left"
+Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1"
+Margin="43,0,0,144" Width="71"
+x:Name="labelPass" Content="Password" Height="32" VerticalAlignment="Bottom" FontFamily="segoe ui" RenderTransformOrigin="0.166,-0.174" Padding="5"/>
+         <Label Name="forgotLabel" Foreground="Gray"  Content="Forgot Password?" Height="35" Margin="130,0,123,31" VerticalAlignment="Bottom" d:LayoutOverrides="Height" MouseDown="forgotLabel_MouseDown" MouseEnter="forgotLabel_MouseEnter"/>
+         <Label Name="registerLabel" Foreground="Gray"  Content="Register" Height="35" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Margin="130,0,0,10" MouseDown="registerLabel_MouseDown" MouseEnter="registerLabel_MouseEnter" />
+      </Grid>
+      </telerik:RadBusyIndicator>
+   </StackPanel>
+</Page>
